@@ -4,6 +4,7 @@ const admin = require('firebase-admin')
 const cors = require('cors')
 const FirebaseStore = require('connect-session-firebase')(session)
 const app = express()
+const cookieParser = require('cookie-parser')
 
 const firebaseConfig = {
     apiKey: "AIzaSyCXXM7gSvNeOomibXnLK5i9Wpn98j5PRUw",
@@ -27,7 +28,7 @@ app.use(cors({
     credentials: true,
     exposedHeaders: ['set-cookie']
 }))
-
+app.use(cookieParser())
 app.use(session({
     secret: 'secretkey',
     resave: true,
