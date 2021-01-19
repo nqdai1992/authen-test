@@ -26,9 +26,7 @@ const ref = admin.initializeApp({
 app.use(cors({
     origin: ['http://localhost:8080', 'https://localhost:8080'],
     credentials: true,
-    exposedHeaders: ['set-cookie']
 }))
-app.use(cookieParser())
 app.use(session({
     secret: 'secretkey',
     resave: true,
@@ -39,7 +37,8 @@ app.use(session({
     cookie: {
         originalMaxAge: 3600000,
         maxAge: 3600000,
-        secure: true
+        secure: true,
+        httpOnly: true
     }
 }))
 
