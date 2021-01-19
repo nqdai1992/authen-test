@@ -49,4 +49,4 @@ app.get('/test', (req, res, next) => {
 })
 
 
-app.listen(6060)
+app.listen(process.env.port || 8080)
