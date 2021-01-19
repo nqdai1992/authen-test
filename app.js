@@ -27,32 +27,19 @@ app.use(cors({
     origin: ['http://localhost:8080', 'https://localhost:8080'],
     credentials: true,
 }))
-app.use(session({
-    secret: 'secretkey',
-    resave: true,
-    saveUninitialized: true,
-    store: new FirebaseStore({
-        database: ref.database()
-    }),
-    cookie: {
-        originalMaxAge: 3600000,
-        maxAge: 3600000,
-        secure: true,
-        httpOnly: true
+app.use(session({ secret: "thepolyglotdeveloper", cookie: { secure: true, maxAge: 60000 }, saveUninitialized: true, resave: true }));
+
+app.get("/session", (request, response, next) => {
+    request.session.example = Date.now();
+    response.send({ id: request.session.example });
+});
+
+app.post("/session", (request, response, next) => {
+    if(request.body.session != request.session.example) {
+        return response.status(500).send({ message: "The data in the session does not match!" });
     }
-}))
-
-app.get('/login', (req, res, next) => {
-    req.session.views = 0
-    res.end('login')
-})
-
-app.get('/test', (req, res, next) => {
-    console.log(req.session)
-    res.json({
-        views: req.session.views++
-    })
-})
+    response.send({ message: "Success!" });
+});
 
 
 app.listen(process.env.PORT || 8080)
