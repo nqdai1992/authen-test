@@ -5,6 +5,7 @@ const cors = require('cors')
 const FirebaseStore = require('connect-session-firebase')(session)
 const app = express()
 const cookieParser = require('cookie-parser')
+const bodyParser = require("body-parser")
 
 const firebaseConfig = {
     apiKey: "AIzaSyCXXM7gSvNeOomibXnLK5i9Wpn98j5PRUw",
@@ -29,6 +30,8 @@ app.use(cors({
 }))
 app.use(session({ secret: "thepolyglotdeveloper", cookie: { secure: true, maxAge: 60000 }, saveUninitialized: true, resave: true }));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/session", (request, response, next) => {
     request.session.example = Date.now();
     response.send({ id: request.session.example });
