@@ -33,7 +33,11 @@ app.use(session({
     saveUninitialized: true,
     store: new FirebaseStore({
         database: ref.database()
-      }),
+    }),
+    cookie: {
+        originalMaxAge: 3600000,
+        maxAge: 3600000
+    }
 }))
 
 app.get('/login', (req, res, next) => {
@@ -49,4 +53,4 @@ app.get('/test', (req, res, next) => {
 })
 
 
-app.listen(process.env.port || 8080)
+app.listen(process.env.PORT || 8080)
