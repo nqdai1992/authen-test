@@ -25,7 +25,7 @@ const ref = admin.initializeApp({
 });
 
 app.use(cors({
-    origin: ['http://localhost:8080', 'https://localhost:8080'],
+    origin: ['http://localhost:8080', 'https://localhost:8080', 'https://nostalgic-chandrasekhar-4713dd.netlify.app'],
     credentials: true,
 }))
 app.use(session({ secret: "thepolyglotdeveloper", cookie: { secure: true, maxAge: 60000 }, saveUninitialized: true, resave: true }));
